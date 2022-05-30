@@ -1,0 +1,96 @@
+﻿@using EmprestimosFacilitados.ViewModels
+@model PagarParcelaViewModel;
+
+@{
+    ViewData["Title"] = "PagarParcela";
+}
+
+
+<div>
+    <h4>Pagar Parcela Emprestimo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MeuEmprestimo.Cliente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MeuEmprestimo.Cliente.Cpf)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MeuEmprestimo.ValorEmprestado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MeuEmprestimo.ValorEmprestado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MeuEmprestimo.ValorTotalQueSerapago)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MeuEmprestimo.ValorTotalQueSerapago)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MeuEmprestimo.ValorPago)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MeuEmprestimo.ValorPago)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MeuEmprestimo.TipoEmprestimo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MeuEmprestimo.TipoEmprestimo.Descricao)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MeuEmprestimo.QtdParcelasPagas)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MeuEmprestimo.QtdParcelasPagas)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MeuEmprestimo.IsEmprestimoQuitado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MeuEmprestimo.IsEmprestimoQuitado)
+        </dd>
+    </dl>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PagarQtdParcela">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MeuEmprestimo.MeuEmprestimoId" />
+            <div>
+                <div class="form-group">
+                    <label asp-for="QtdParcelasQueDesejaPagar" class="control-label"></label>
+                    <input asp-for="QtdParcelasQueDesejaPagar" class="form-control" min="1"/>
+                    <span asp-validation-for="QtdParcelasQueDesejaPagar" class="text-danger"></span>
+                </div>
+                <div>
+                    <input type="button" value="Simular" class="btn btn-success" onclick="simularPagamentoParcela()" />
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorParcela" class="control-label"></label>
+                <input asp-for="ValorParcela" class="form-control" readonly/>
+                <span asp-validation-for="ValorParcela" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorTotal" class="control-label"></label>
+                <input asp-for="ValorTotal" class="form-control" readonly />
+                <span asp-validation-for="ValorTotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+   
+    <a asp-action="Index">Back to List</a>
+</div>
+
