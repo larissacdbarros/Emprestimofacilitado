@@ -11,10 +11,10 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MeuEmprestimo.Cliente.Nome)
+            @Html.DisplayNameFor(model => model.MeuEmprestimo.Cliente)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MeuEmprestimo.Cliente.Cpf)
+            @Html.DisplayFor(model => model.MeuEmprestimo.Cliente.Nome)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.MeuEmprestimo.ValorEmprestado)
@@ -35,7 +35,7 @@
             @Html.DisplayFor(model => model.MeuEmprestimo.ValorPago)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MeuEmprestimo.TipoEmprestimo)
+            Tipo de Empréstimo
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.MeuEmprestimo.TipoEmprestimo.Descricao)
