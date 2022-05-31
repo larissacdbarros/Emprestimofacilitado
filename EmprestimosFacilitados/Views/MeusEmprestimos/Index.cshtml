@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<EmprestimosFacilitados.Models.MeuEmprestimo>
 
 @{
-    ViewData["Title"] = "Emprestimos";
+    ViewData["Title"] = "Empréstimos";
 }
 
-<h1>Index</h1>
+<h1>Empréstimos</h1>
 
 <p>
     <a asp-action="Create"><button type="button" class="btn btn-primary">Novo Empréstimo</button></a>
@@ -68,10 +68,21 @@
                 @Html.DisplayFor(modelItem => item.IsEmprestimoQuitado)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.MeuEmprestimoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MeuEmprestimoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MeuEmprestimoId">Delete</a>
-                <a asp-action="PagarParcela" asp-route-id="@item.MeuEmprestimoId">Pagar Parcela</a>
+                <div div class="row" "col-sm-3">
+                <a asp-action="Edit" asp-route-id="@item.MeuEmprestimoId" ><button type="button" class="btn btn-success">Editar </button></a>
+                <a asp-action="Details" asp-route-id="@item.MeuEmprestimoId"><button type="button" class="btn btn-secondary">Detalhes</button></a> 
+                <a asp-action="Delete" asp-route-id="@item.MeuEmprestimoId"> <button type="button" class="btn btn-danger">Deletar</button></a>
+                <a asp-action="PagarParcela" asp-route-id="@item.MeuEmprestimoId"><button type="button" class="btn btn-warning">Pagar Parcela</button></a>
+                    
+                </div>
+                <div div class="row" class = "col-sm-4">
+                </div>
+                <div div class="row" class = "col-sm-4">
+                </div>
+                <div div class="row" class = "col-sm-4">
+                </div>
+                 
+                
                 
             </td>
         </tr>

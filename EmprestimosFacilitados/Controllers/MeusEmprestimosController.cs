@@ -196,10 +196,9 @@ namespace EmprestimosFacilitados.Controllers
             return View(pagarParcela);
         }
 
-        public void simularPagamentoParcela()
+        protected void SimularPagamentoParcela(object sender, EventArgs e)
         {
-
-            Console.WriteLine("Entrou");
+            Console.WriteLine("simulação");
         }
 
 }

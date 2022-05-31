@@ -4,7 +4,7 @@
     ViewData["Title"] = "Clientes";
 }
 
-<h1>Index</h1>
+<h1>Clientes</h1>
 
 <p>
     
@@ -50,9 +50,9 @@
                 @Html.DisplayFor(modelItem => item.RendaMensal)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ClienteId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ClienteId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ClienteId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ClienteId" ><button type="button" class="btn btn-success">Editar </button></a> |
+                <a asp-action="Details" asp-route-id="@item.ClienteId"><button type="button" class="btn btn-secondary">Detalhes</button></a> |
+                <a asp-action="Delete" asp-route-id="@item.ClienteId"> <button type="button" class="btn btn-danger">Deletar</button></a>
             </td>
         </tr>
 }

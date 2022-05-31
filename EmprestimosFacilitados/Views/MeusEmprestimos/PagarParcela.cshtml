@@ -7,7 +7,7 @@
 
 
 <div>
-    <h4>Pagar Parcela Emprestimo</h4>
+    <h4>Pagar Parcela </h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -60,18 +60,22 @@
         <form asp-action="PagarQtdParcela">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MeuEmprestimo.MeuEmprestimoId" />
-            <div>
+            
                 <div class="form-group">
                     <label asp-for="QtdParcelasQueDesejaPagar" class="control-label"></label>
+                    
+
                     <input asp-for="QtdParcelasQueDesejaPagar" class="form-control" min="1"/>
                     <span asp-validation-for="QtdParcelasQueDesejaPagar" class="text-danger"></span>
+
                 </div>
                 <div>
-                    <input type="button" value="Simular" class="btn btn-success" onclick="simularPagamentoParcela()" />
-                </div>
-
-
-            </div>
+                     <asp:Label ID="QtdParcelas" runat="server" Text="Label">na label</asp:Label>
+                    <asp:TextBox ID="QtdParcelas" runat="server" OnTextChanged="SimularPagamentoParcela" AutoPostBack="true"></asp:TextBox
+                   
+'               </div>
+        
+            
             <div class="form-group">
                 <label asp-for="ValorParcela" class="control-label"></label>
                 <input asp-for="ValorParcela" class="form-control" readonly/>

@@ -1,13 +1,13 @@
 ﻿@model EmprestimosFacilitados.Models.MeuEmprestimo
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes do Empréstimo";
 }
 
-<h1>Details</h1>
+<h1>Detalhes do Empréstimo</h1>
 
 <div>
-    <h4>MeuEmprestimo</h4>
+    
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -55,6 +55,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.MeuEmprestimoId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+     <a asp-action="Edit" asp-route-id="@Model?.MeuEmprestimoId"><button type="button" class="btn btn-success">Editar</button></a> |
+    <a asp-action="Index"><button type="button" class="btn btn-secondary">Voltar para lista</button></a>
 </div>
