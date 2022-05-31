@@ -11,7 +11,7 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MeuEmprestimo.Cliente)
+            @Html.DisplayNameFor(model => model.MeuEmprestimo.Cliente.Nome)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.MeuEmprestimo.Cliente.Cpf)
@@ -55,46 +55,38 @@
     </dl>
 </div>
 
+   
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="PagarQtdParcela">
+        <form asp-action="PagarParcela">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MeuEmprestimo.MeuEmprestimoId" />
-            
-                <div class="form-group">
-                    <label asp-for="QtdParcelasQueDesejaPagar" class="control-label"></label>
-                    
+            <input type="hidden" asp-for="MeuEmprestimo.ClienteId" />
+            <input type="hidden" asp-for="MeuEmprestimo.TipoEmprestimoId" />
+            <input type="hidden" asp-for="MeuEmprestimo.ValorEmprestado" />
+            <input type="hidden" asp-for="MeuEmprestimo.ValorTotalQueSerapago" />
+            <input type="hidden" asp-for="MeuEmprestimo.ValorPago" />
+            <input type="hidden" asp-for="MeuEmprestimo.QtdParcelasPagas" />
 
-                    <input asp-for="QtdParcelasQueDesejaPagar" class="form-control" min="1"/>
-                    <span asp-validation-for="QtdParcelasQueDesejaPagar" class="text-danger"></span>
-
-                </div>
-                <div>
-                     <asp:Label ID="QtdParcelas" runat="server" Text="Label">na label</asp:Label>
-                    <asp:TextBox ID="QtdParcelas" runat="server" OnTextChanged="SimularPagamentoParcela" AutoPostBack="true"></asp:TextBox
-                   
-'               </div>
-        
-            
+            <div class="form-group">
+                <label asp-for="QtdParcelasQueDesejaPagar" class="control-label"></label>
+                <input asp-for="QtdParcelasQueDesejaPagar" class="form-control" min="1"/>
+                <span asp-validation-for="QtdParcelasQueDesejaPagar" class="text-danger"></span>
+            </div>            
             <div class="form-group">
                 <label asp-for="ValorParcela" class="control-label"></label>
                 <input asp-for="ValorParcela" class="form-control" readonly/>
                 <span asp-validation-for="ValorParcela" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="ValorTotal" class="control-label"></label>
-                <input asp-for="ValorTotal" class="form-control" readonly />
+                <input asp-for="ValorTotal" value="@ViewData["valor"]" class="form-control" readonly />
                 <span asp-validation-for="ValorTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+        
     </div>
 </div>
-
-<div>
-   
-    <a asp-action="Index">Back to List</a>
-</div>
-

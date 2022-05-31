@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Editar - Cliente</h1>
+<h1>Atualizar Cliente</h1>
 
 
 <hr />
@@ -29,7 +29,7 @@
                 <span asp-validation-for="Cpf" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
+                <label asp-for="Email" class="control-label">E-mail</label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
@@ -38,8 +38,9 @@
                 <input asp-for="RendaMensal" class="form-control" />
                 <span asp-validation-for="RendaMensal" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-success" />
+                <input type="submit" value="Salvar" class="btn btn-success" />
                 <a asp-action="Index"><button type="button" class="btn btn-secondary">Voltar</button></a>
             </div>
         </form>

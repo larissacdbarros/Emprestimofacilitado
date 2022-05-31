@@ -14,6 +14,9 @@ namespace EmprestimosFacilitados.Controllers
     public class MeusEmprestimosController : Controller
     {
         private readonly EmprestimosFacilitadosContext _context;
+        
+        [ViewData]
+        public int valor { get; set; }
 
         public MeusEmprestimosController(EmprestimosFacilitadosContext context)
         {
@@ -50,8 +53,8 @@ namespace EmprestimosFacilitados.Controllers
         // GET: MeusEmprestimos/Create
         public IActionResult Create()
         {
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Cpf");
-            ViewData["TipoEmprestimoId"] = new SelectList(_context.TiposEmprestimos, "TipoEmprestimoId", "Descricao");
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Nome");
+            ViewData["TipoEmprestimoId"] = new SelectList(_context.TiposEmprestimos, "TipoEmprestimoId", "Nome");
             return View();
         }
 
@@ -62,8 +65,12 @@ namespace EmprestimosFacilitados.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MeuEmprestimoId,ClienteId,ValorEmprestado,ValorTotalQueSerapago,ValorPago,TipoEmprestimoId,QtdParcelasPagas,IsEmprestimoQuitado")] MeuEmprestimo meuEmprestimo)
         {
+            ModelState.Remove("Cliente");
+            ModelState.Remove("TipoEmprestimo");
             if (ModelState.IsValid)
             {
+                TipoEmprestimo tipoEmprestimo = _context.TiposEmprestimos.FirstOrDefault(t => t.TipoEmprestimoId == meuEmprestimo.TipoEmprestimoId);
+                meuEmprestimo.ValorTotalQueSerapago = meuEmprestimo.ValorEmprestado * Convert.ToDecimal(tipoEmprestimo.Juros);
                 _context.Add(meuEmprestimo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,8 +93,8 @@ namespace EmprestimosFacilitados.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Cpf", meuEmprestimo.ClienteId);
-            ViewData["TipoEmprestimoId"] = new SelectList(_context.TiposEmprestimos, "TipoEmprestimoId", "Descricao", meuEmprestimo.TipoEmprestimoId);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Nome", meuEmprestimo.ClienteId);
+            ViewData["TipoEmprestimoId"] = new SelectList(_context.TiposEmprestimos, "TipoEmprestimoId", "Nome", meuEmprestimo.TipoEmprestimoId);
             return View(meuEmprestimo);
         }
 
@@ -103,10 +110,14 @@ namespace EmprestimosFacilitados.Controllers
                 return NotFound();
             }
 
+            ModelState.Remove("Cliente");
+            ModelState.Remove("TipoEmprestimo");
             if (ModelState.IsValid)
             {
                 try
                 {
+                    TipoEmprestimo tipoEmprestimo = _context.TiposEmprestimos.FirstOrDefault(t => t.TipoEmprestimoId == meuEmprestimo.TipoEmprestimoId);
+                    meuEmprestimo.ValorTotalQueSerapago = meuEmprestimo.ValorEmprestado * Convert.ToDecimal(tipoEmprestimo.Juros);
                     _context.Update(meuEmprestimo);
                     await _context.SaveChangesAsync();
                 }
@@ -186,20 +197,64 @@ namespace EmprestimosFacilitados.Controllers
                 .FirstOrDefaultAsync(m => m.MeuEmprestimoId == id)
             };
 
+            valor = 456;
+
             if (pagarParcela.MeuEmprestimo == null)
             {
                 return NotFound();
             }
             pagarParcela.QtdParcelasParaPagar = pagarParcela.MeuEmprestimo.TipoEmprestimo.QuantidadeMeses - pagarParcela.MeuEmprestimo.QtdParcelasPagas;
             pagarParcela.ValorParcela = pagarParcela.MeuEmprestimo.ValorTotalQueSerapago / pagarParcela.MeuEmprestimo.TipoEmprestimo.QuantidadeMeses;
-
             return View(pagarParcela);
         }
 
-        protected void SimularPagamentoParcela(object sender, EventArgs e)
+        [HttpPost]
+        public async Task<IActionResult> PagarParcela(int id, [Bind("QtdParcelasParaPagar, QtdParcelasQueDesejaPagar, ValorTotal, ValorParcela, MeuEmprestimo")] PagarParcelaViewModel pagarParcelaViewModel)
         {
-            Console.WriteLine("simulação");
+
+            ModelState.Remove("MeuEmprestimo.Cliente");
+            ModelState.Remove("MeuEmprestimo.TipoEmprestimo");
+            ModelState.Remove("MeuEmprestimo.MeuEmprestimoId");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    TipoEmprestimo tipoEmprestimo = _context.TiposEmprestimos.FirstOrDefault(t => t.TipoEmprestimoId == pagarParcelaViewModel.MeuEmprestimo.TipoEmprestimoId);
+                    pagarParcelaViewModel.MeuEmprestimo.QtdParcelasPagas += pagarParcelaViewModel.QtdParcelasQueDesejaPagar;
+                    pagarParcelaViewModel.MeuEmprestimo.ValorPago += (pagarParcelaViewModel.ValorParcela * pagarParcelaViewModel.QtdParcelasQueDesejaPagar);
+                    if(pagarParcelaViewModel.MeuEmprestimo.QtdParcelasPagas >= tipoEmprestimo.QuantidadeMeses)
+                    {
+                        pagarParcelaViewModel.MeuEmprestimo.IsEmprestimoQuitado = true;
+                    }
+                    else
+                    {
+                        pagarParcelaViewModel.MeuEmprestimo.IsEmprestimoQuitado = false;
+                    }
+                    
+                    _context.Update(pagarParcelaViewModel.MeuEmprestimo);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MeuEmprestimoExists(pagarParcelaViewModel.MeuEmprestimo.MeuEmprestimoId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(pagarParcelaViewModel);
+
         }
 
-}
+
+
+
+
+    }
 }

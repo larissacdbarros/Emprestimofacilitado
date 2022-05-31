@@ -23,19 +23,19 @@
                 @Html.DisplayNameFor(model => model.Cliente.Sobrenome)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ValorTotalQueSerapago)
+                Valor Total
             </th>
             <th>
                 Tipo de Empréstimo
             </th>
             <th>
-                Quantidade de parcelas pagas
+                Parcelas pagas
             </th>
             <th>
-                Quantidade de parcelas para pagar
+                Parcelas a pagar
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsEmprestimoQuitado)
+                Quitado
             </th>
             <th></th>
         </tr>
@@ -68,22 +68,12 @@
                 @Html.DisplayFor(modelItem => item.IsEmprestimoQuitado)
             </td>
             <td>
-                <div div class="row" "col-sm-3">
+                
                 <a asp-action="Edit" asp-route-id="@item.MeuEmprestimoId" ><button type="button" class="btn btn-success">Editar </button></a>
                 <a asp-action="Details" asp-route-id="@item.MeuEmprestimoId"><button type="button" class="btn btn-secondary">Detalhes</button></a> 
                 <a asp-action="Delete" asp-route-id="@item.MeuEmprestimoId"> <button type="button" class="btn btn-danger">Deletar</button></a>
                 <a asp-action="PagarParcela" asp-route-id="@item.MeuEmprestimoId"><button type="button" class="btn btn-warning">Pagar Parcela</button></a>
                     
-                </div>
-                <div div class="row" class = "col-sm-4">
-                </div>
-                <div div class="row" class = "col-sm-4">
-                </div>
-                <div div class="row" class = "col-sm-4">
-                </div>
-                 
-                
-                
             </td>
         </tr>
 }

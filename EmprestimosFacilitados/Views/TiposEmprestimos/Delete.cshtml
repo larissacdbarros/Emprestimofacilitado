@@ -4,11 +4,11 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Deletar Tipo de Empréstimo</h1>
 
 
 <div>
-    <h4>TipoEmprestimo</h4>
+    
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -18,19 +18,19 @@
             @Html.DisplayFor(model => model.Nome)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QuantidadeMeses)
+            Quantidade de Parcelas
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.QuantidadeMeses)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Juros)
+            Juros (%)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Juros)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descricao)
+            Descrição
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Descricao)
@@ -39,7 +39,7 @@
     <h4>Tem certeza que deseja excluir?</h4>
     <form asp-action="Delete">
         <input type="hidden" asp-for="TipoEmprestimoId" />
-        <input type="submit" value="Sim, excluir tipo de empréstimo" class="btn btn-danger" /> |
+        <input type="submit" value="Sim, excluir tipo de empréstimo" class="btn btn-danger" /> 
         <a asp-action="Index"><button type="button" class="btn btn-secondary">Não,  retornar para a lista </button></a>
     </form>
 </div>

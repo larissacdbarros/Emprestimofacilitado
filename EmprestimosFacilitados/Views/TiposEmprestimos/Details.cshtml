@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Detalhes - tTipo de emprestimo</h1>
+<h1>Detalhes - Tipo de emprestimo</h1>
 
 <div>
     
@@ -17,19 +17,19 @@
             @Html.DisplayFor(model => model.Nome)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QuantidadeMeses)
+            Quantidade de Parcelas
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.QuantidadeMeses)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Juros)
+            Juros (%)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Juros)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descricao)
+            Descrição
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Descricao)
@@ -37,6 +37,6 @@
     </dl>
 </div>
 <div>
-     <a asp-action="Edit" asp-route-id="@Model?.TipoEmprestimoId"><button type="button" class="btn btn-success">Editar</button></a> |
-    <a asp-action="Index"><button type="button" class="btn btn-secondary">Voltar para lista</button></a>
+     <a asp-action="Edit" asp-route-id="@Model?.TipoEmprestimoId"><button type="button" class="btn btn-success">Editar</button></a> 
+    <a asp-action="Index"><button type="button" class="btn btn-secondary">Voltar</button></a>
 </div>
